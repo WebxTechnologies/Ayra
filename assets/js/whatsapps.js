@@ -6,21 +6,24 @@ document.addEventListener('DOMContentLoaded', function() {
 function initWhatsAppPopup() {
     const popup = document.getElementById('whatsappPopup');
     const openBtn = document.getElementById('steamQuoteBtn');
+    const openBtns = document.getElementById('steamQuoteBtns');
     const closeBtn = document.getElementById('closePopup');
     const overlay = document.getElementById('popupOverlay');
     const form = document.getElementById('whatsappQuoteForm');
     
-    if (!popup || !openBtn) {
+    if (!popup || !openBtn || !openBtns) {
         console.log('WhatsApp popup elements not found on this page');
         return;
     }
     
-    // Open popup
     openBtn.addEventListener('click', function(e) {
         e.preventDefault();
         openPopup();
     });
-    
+    openBtns.addEventListener('click', function(e) {
+        e.preventDefault();
+        openPopup();
+    });
     // Close popup
     function closePopup() {
         popup.classList.remove('show');
