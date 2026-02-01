@@ -1,0 +1,722 @@
+.portfolio-section {
+    padding: 100px 0;
+    background: var(--light);
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+    gap: 30px;
+    margin-top: 40px;
+    justify-content: center;
+    justify-items: center;
+}
+
+.portfolio-item {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.portfolio-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-image {
+    margin-top: 2rem;
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.portfolio-content {
+    padding: 20px;
+}
+
+.portfolio-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.portfolio-content p {
+    color: var(--gray);
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.portfolio-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.portfolio-tag {
+    background: var(--light);
+    color: var(--primary);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Portfolio button styles */
+.portfolio-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    border: 1px solid var(--primary);
+    margin-top: 15px;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.portfolio-button:hover {
+    background: var(--primary-dark);
+    color: white;
+    box-shadow: 0 4px 8px rgba(67, 97, 238, 0.2);
+    transform: translateY(-2px);
+}
+
+.portfolio-button:active {
+    transform: translateY(0);
+}
+
+
+.testimonials-section {
+    padding: 100px 0;
+}
+
+.testimonials-slider {
+    max-width: 800px;
+    margin: 40px auto 0;
+    position: relative;
+}
+
+.testimonial {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    display: none;
+}
+
+.testimonial.active {
+    display: block;
+}
+
+.testimonial-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--gray);
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.author-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-info h4 {
+    margin: 0 0 5px 0;
+    color: var(--dark);
+}
+
+.author-info p {
+    margin: 0;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.testimonial-rating {
+    color: #ffc107;
+    margin-top: 10px;
+}
+
+.testimonial-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.testimonial-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--light-gray);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.testimonial-dot.active {
+    background: var(--primary);
+    transform: scale(1.2);
+}
+
+/* Services Dropdown Menu */
+.nav-links > li {
+    position: relative;
+}
+
+.services-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 200px;
+    box-shadow: var(--shadow);
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: var(--transition);
+    z-index: 1000;
+}
+
+.nav-links > li:hover .services-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.services-dropdown a {
+    display: block;
+    padding: 12px 20px;
+    color: var(--dark);
+    text-decoration: none;
+    border-bottom: 1px solid var(--light-gray);
+    transition: var(--transition);
+}
+
+.services-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.services-dropdown a:hover {
+    background: var(--light);
+    color: var(--primary);
+}
+
+.services-dropdown a.active {
+    background: var(--light);
+    color: var(--primary);
+    font-weight: 500;
+}
+
+/* Mobile Dropdown */
+@media (max-width: 768px) {
+    .services-dropdown {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        background: transparent;
+        padding-left: 20px;
+        display: none;
+    }
+    
+    .services-dropdown.active {
+        display: block;
+    }
+    
+    .services-dropdown a {
+        padding: 8px 0;
+        border-bottom: none;
+    }
+    
+    .nav-links > li.has-dropdown > a:after {
+        content: '\f078';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        margin-left: 8px;
+        transition: var(--transition);
+    }
+    
+    .nav-links > li.has-dropdown > a.active:after {
+        transform: rotate(180deg);
+    }
+    
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .testimonial {
+        padding: 25px;
+    }
+    
+    .author-avatar {
+        width: 50px;
+        height: 50px;
+    }
+}
+/* WhatsApp Popup Styles */
+.whatsapp-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+.whatsapp-popup.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.popup-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.popup-header {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.popup-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.close-popup {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    line-height: 1;
+    padding: 0;
+}
+
+.close-popup:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.popup-body {
+    padding: 25px;
+    overflow-y: auto;
+    max-height: calc(90vh - 80px);
+}
+
+.popup-description {
+    color: var(--gray);
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+/* Form Styles for Popup */
+/* WhatsApp Popup Styles - FIXED */
+.whatsapp-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.whatsapp-popup.active {
+    display: block;
+    opacity: 1;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.popup-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10000;
+    pointer-events: auto !important;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Prevent clicks on popup from closing it */
+.popup-container,
+.popup-container * {
+    pointer-events: auto;
+}
+
+.popup-header {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    pointer-events: auto;
+}
+
+.popup-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.close-popup {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    line-height: 1;
+    padding: 0;
+    pointer-events: auto;
+    z-index: 10001;
+}
+
+.close-popup:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.popup-body {
+    padding: 25px;
+    overflow-y: auto;
+    max-height: calc(90vh - 80px);
+    pointer-events: auto;
+}
+
+/* Form Styles */
+#whatsappQuoteForm {
+    pointer-events: auto;
+}
+
+#whatsappQuoteForm .form-group {
+    margin-bottom: 20px;
+}
+
+#whatsappQuoteForm label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark);
+    font-size: 0.9rem;
+}
+
+#whatsappQuoteForm input,
+#whatsappQuoteForm select,
+#whatsappQuoteForm textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: white;
+    pointer-events: auto;
+}
+
+#whatsappQuoteForm input:focus,
+#whatsappQuoteForm select:focus,
+#whatsappQuoteForm textarea:focus {
+    outline: none;
+    border-color: #25D366;
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+}
+
+/* Submit button */
+.whatsapp-submit-btn {
+    flex: 1;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+    pointer-events: auto;
+    width: 100%;
+}
+
+.whatsapp-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .popup-container {
+        width: 95%;
+        max-height: 85vh;
+    }
+    
+    .popup-body {
+        padding: 20px;
+    }
+}
+/* WhatsApp CTA Buttons */
+.whatsapp-cta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+}
+
+.whatsapp-cta:hover {
+    background: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-cta i {
+    font-size: 1.2rem;
+}
+
+/* Form Validation */
+#whatsappQuoteForm input:invalid,
+#whatsappQuoteForm select:invalid,
+#whatsappQuoteForm textarea:invalid {
+    border-color: #ff4444;
+}
+
+#whatsappQuoteForm input:valid,
+#whatsappQuoteForm select:valid,
+#whatsappQuoteForm textarea:valid {
+    border-color: #25D366;
+}
+.form-actions {
+    display: block !important;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    width: 100%;
+}
+
+.whatsapp-submit-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+    text-decoration: none;
+    margin: 0;
+}
+
+.whatsapp-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-submit-btn:active {
+    transform: translateY(0);
+}
+
+.whatsapp-submit-btn i {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .popup-container {
+        width: 95%;
+        max-height: 85vh;
+    }
+    
+    .popup-body {
+        padding: 20px;
+        max-height: calc(85vh - 70px);
+    }
+    
+
+    .whatsapp-submit-btn {
+        padding: 18px 20px;
+        font-size: 1.1rem;
+        min-height: 56px; 
+        position: relative;
+        z-index: 10;
+    }
+    
+    .form-actions {
+        margin-top: 25px;
+        padding-top: 15px;
+        bottom: 0;
+        background: white;
+        padding-bottom: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .popup-container {
+        width: 98%;
+        border-radius: 12px;
+    }
+    
+    .popup-body {
+        padding: 15px;
+    }
+    
+    .whatsapp-submit-btn {
+        padding: 16px;
+        font-size: 1rem;
+    }
+    
+    .popup-header {
+        padding: 15px 20px;
+    }
+    
+    .popup-header h3 {
+        font-size: 1.1rem;
+    }
+}
+
