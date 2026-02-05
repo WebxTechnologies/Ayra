@@ -64,6 +64,12 @@ if (mobileMenuBtn && navLinks) {
     });
 }
 
+// Mobile device detection
+const isMobileDevice = () => {
+    return window.innerWidth <= 768 || 
+           /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
 // Enhanced Typing Animation with Better Timing
 class TypingAnimation {
     constructor(element) {
@@ -74,11 +80,12 @@ class TypingAnimation {
         this.deleteSpeed = 30;
         this.pauseDuration = 2000;
         this.currentText = '';
-        this.isDeleting = false;
         this.charIndex = 0;
+        this.isDeleting = false;
         this.isComplete = false;
         this.timeout = null;
         this.onComplete = null;
+        this.isMobile = isMobileDevice();
     }
     
     type() {
@@ -119,6 +126,20 @@ class TypingAnimation {
     }
     
     start() {
+        // For mobile, just show the text immediately
+        if (this.isMobile) {
+            this.element.textContent = this.text;
+            if (this.cursor) {
+                this.cursor.style.display = 'none';
+            }
+            this.isComplete = true;
+            
+            if (this.onComplete && typeof this.onComplete === 'function') {
+                setTimeout(() => this.onComplete(), 500);
+            }
+            return;
+        }
+        
         this.currentText = '';
         this.charIndex = 0;
         this.isDeleting = false;
@@ -162,7 +183,7 @@ class TypingAnimation {
     }
 }
 
-// Hero Slider with Perfect Typing Animation Sync
+// Hero Slider with Mobile Optimization
 class HeroSlider {
     constructor() {
         this.slides = document.querySelectorAll('.hero-slide');
@@ -173,32 +194,19 @@ class HeroSlider {
         this.typingAnimations = [];
         this.autoSlideEnabled = true;
         this.isAnimating = false;
+        this.isMobile = isMobileDevice();
         
         this.init();
     }
     
     init() {
-        document.querySelectorAll('.typing-text').forEach((element, index) => {
-            const typingAnimation = new TypingAnimation(element);
-            
-            typingAnimation.setOnComplete(() => {
-                if (this.autoSlideEnabled && index === this.currentSlide && !this.isAnimating) {
-                    setTimeout(() => {
-                        if (this.autoSlideEnabled && index === this.currentSlide && !this.isAnimating) {
-                            this.nextSlide();
-                        }
-                    }, 1000);
-                }
-            });
-            
-            this.typingAnimations.push(typingAnimation);
-            
-            if (index === 0) {
-                setTimeout(() => {
-                    typingAnimation.start();
-                }, 500);
-            }
-        });
+        if (this.isMobile) {
+            // For mobile: Skip typing animation and show text immediately
+            this.initializeMobileSlides();
+        } else {
+            // For desktop: Use typing animation
+            this.initializeDesktopSlides();
+        }
         
         this.dots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
@@ -224,11 +232,55 @@ class HeroSlider {
         }
     }
     
+    initializeMobileSlides() {
+        // Skip typing animation on mobile
+        document.querySelectorAll('.typing-text').forEach((element, index) => {
+            const text = element.getAttribute('data-text');
+            element.textContent = text; // Set text immediately
+            
+            // Hide cursor on mobile
+            const cursor = element.nextElementSibling;
+            if (cursor && cursor.classList.contains('cursor')) {
+                cursor.style.display = 'none';
+            }
+        });
+        
+        // Store null typing animations for mobile
+        this.slides.forEach(() => {
+            this.typingAnimations.push(null);
+        });
+    }
+    
+    initializeDesktopSlides() {
+        // Original desktop typing animation code
+        document.querySelectorAll('.typing-text').forEach((element, index) => {
+            const typingAnimation = new TypingAnimation(element);
+            
+            typingAnimation.setOnComplete(() => {
+                if (this.autoSlideEnabled && index === this.currentSlide && !this.isAnimating) {
+                    setTimeout(() => {
+                        if (this.autoSlideEnabled && index === this.currentSlide && !this.isAnimating) {
+                            this.nextSlide();
+                        }
+                    }, 1000);
+                }
+            });
+            
+            this.typingAnimations.push(typingAnimation);
+            
+            if (index === 0) {
+                setTimeout(() => {
+                    typingAnimation.start();
+                }, 500);
+            }
+        });
+    }
+    
     handleManualSlideChange(slideChangeFunction) {
         this.autoSlideEnabled = false;
         this.stopAutoSlide();
         
-        if (this.typingAnimations[this.currentSlide]) {
+        if (!this.isMobile && this.typingAnimations[this.currentSlide]) {
             this.typingAnimations[this.currentSlide].stop();
         }
         
@@ -248,7 +300,7 @@ class HeroSlider {
         this.slides[this.currentSlide].classList.remove('active');
         this.dots[this.currentSlide].classList.remove('active');
         
-        if (this.typingAnimations[this.currentSlide]) {
+        if (!this.isMobile && this.typingAnimations[this.currentSlide]) {
             this.typingAnimations[this.currentSlide].stop();
         }
         
@@ -261,7 +313,7 @@ class HeroSlider {
             this.dots[this.currentSlide].classList.add('active');
             
             setTimeout(() => {
-                if (this.typingAnimations[this.currentSlide]) {
+                if (!this.isMobile && this.typingAnimations[this.currentSlide]) {
                     this.typingAnimations[this.currentSlide].start();
                 }
                 this.isAnimating = false;
@@ -283,9 +335,15 @@ class HeroSlider {
         if (this.autoSlideEnabled) {
             this.slideInterval = setInterval(() => {
                 const currentTyping = this.typingAnimations[this.currentSlide];
-                if (currentTyping && currentTyping.isComplete && !this.isAnimating) {
+                
+                // For mobile, always auto-slide since there's no typing animation
+                if (this.isMobile && !this.isAnimating) {
                     this.nextSlide();
-                } else if (!currentTyping && !this.isAnimating) {
+                } 
+                // For desktop, check if typing is complete
+                else if (!this.isMobile && currentTyping && currentTyping.isComplete && !this.isAnimating) {
+                    this.nextSlide();
+                } else if (!this.isMobile && !currentTyping && !this.isAnimating) {
                     this.nextSlide();
                 }
             }, this.slideDuration);
@@ -475,7 +533,8 @@ if (document.querySelector('.testimonial-slide')) {
             
             const authorRole = slide.querySelector('.author-info p');
             if (authorRole) authorRole.textContent = testimonial.role;
-                        const authorAvatar = slide.querySelector('.author-avatar');
+            
+            const authorAvatar = slide.querySelector('.author-avatar');
             if (authorAvatar && testimonial.image) {
                 // Clear the icon and add image
                 authorAvatar.innerHTML = '';
@@ -624,6 +683,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.documentElement.style.scrollBehavior = 'smooth';
 });
+
+// URL Manager for handling hash-free URLs
 class URLManager {
     constructor() {
         this.mainPage = 'index.html';
@@ -686,5 +747,5 @@ class URLManager {
     // }
 }
 
-// Initialize
+// Initialize URL Manager
 new URLManager();
