@@ -1732,7 +1732,7 @@ footer:before {
     }
 
     .slide-bg {
-        object-fit: fill;
+        max-width: fit-content;
         animation: none;
 
     }
