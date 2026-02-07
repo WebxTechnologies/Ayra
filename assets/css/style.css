@@ -1732,6 +1732,7 @@ footer:before {
     }
 
     .slide-bg {
+        object-fit: fill;
         animation: none;
 
     }
